@@ -2012,6 +2012,7 @@ I have also structured **3 concrete milestones** below which you can instantly m
                 {isSidebarExpanded && <span className="truncate">Habits & Relax</span>}
               </button>
 
+
               <button
                 onClick={() => setActiveTab('settings')}
                 className={`flex-grow lg:flex-grow-0 w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all border ${

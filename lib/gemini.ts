@@ -5,17 +5,26 @@ let geminiClient: GoogleGenAI | null = null;
 export function getGemini(): GoogleGenAI {
   if (!geminiClient) {
     const key = process.env.GEMINI_API_KEY;
-    if (!key) {
-      throw new Error("GEMINI_API_KEY environment variable is required. Please configure it in your Settings > Secrets.");
-    }
-    geminiClient = new GoogleGenAI({
-      apiKey: key,
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build',
+    const useVertex = process.env.USE_VERTEX === 'true' || !key;
+
+    if (useVertex) {
+      console.log("[Gemini Client] Initializing in GCP Vertex AI mode...");
+      geminiClient = new GoogleGenAI({
+        vertexai: true,
+        project: process.env.GCP_PROJECT || process.env.GOOGLE_CLOUD_PROJECT || 'diya-task-planner-os',
+        location: process.env.GCP_LOCATION || 'asia-south1'
+      });
+    } else {
+      console.log("[Gemini Client] Initializing in Developer AI Studio mode...");
+      geminiClient = new GoogleGenAI({
+        apiKey: key,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
         }
-      }
-    });
+      });
+    }
   }
   return geminiClient;
 }
@@ -58,16 +67,16 @@ export async function generateWithFallback(
         model: currentModel,
       });
       console.log(`[Gemini API] Success using model: ${currentModel}`);
-      
+
       // Inject the model that successfully completed the request
       (response as any).modelUsed = currentModel;
-      
+
       return response;
     } catch (err: any) {
       lastError = err;
       const errMsg = err?.message || '';
       console.warn(`[Gemini API] Failed with model ${currentModel}:`, errMsg);
-      
+
       // If it is the last model, we break
       if (i === uniqueModels.length - 1) {
         break;
