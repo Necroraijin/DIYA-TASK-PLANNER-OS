@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #f4f6f0; /* Ultra-soft sage alabaster */
+    color: #2d3625; /* Soft forest charcoal */
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Glassmorphism / Frosted Panels */
+.frosted-panel {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 
+    0 10px 30px -10px rgba(110, 130, 90, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.frosted-panel-lime {
+  background: rgba(236, 252, 203, 0.45); /* Limelight pastel glaze */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(163, 230, 53, 0.35);
+  box-shadow: 
+    0 10px 30px -10px rgba(132, 204, 22, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Tactile Soft Inset for fields and active items */
+.soft-inset {
+  background: rgba(234, 238, 224, 0.4);
+  box-shadow: 
+    inset 2px 2px 5px rgba(110, 120, 95, 0.15),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.soft-inset-lime {
+  background: rgba(217, 249, 157, 0.3);
+  box-shadow: 
+    inset 2px 2px 4px rgba(132, 204, 22, 0.15),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(132, 204, 22, 0.1);
+}
+
+/* Custom soft scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(140, 160, 120, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 160, 120, 0.5);
+}
+
+/* Organic background animations */
+@keyframes driftLeaves {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  50% { transform: translateY(-15px) rotate(8deg) scale(1.02); }
+  100% { transform: translateY(0px) rotate(0deg) scale(1); }
+}
+
+.animate-sway-slow {
+  animation: driftLeaves 12s ease-in-out infinite;
+}
+
+@keyframes floatBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.organic-bg {
+  background: linear-gradient(-45deg, #f3f6ee, #e7eedd, #e2ecc9, #f7faf2);
+  background-size: 400% 400%;
+  animation: floatBackground 20s ease infinite;
+}
+
+/* Beautiful serene animated mesh & blob backgrounds */
+.animated-mesh-bg {
+  background: linear-gradient(135deg, #f7faf2 0%, #edf4e5 50%, #e2eccb 100%);
+  background-size: 200% 200%;
+  animation: meshShift 15s ease infinite alternate;
+}
+
+@keyframes meshShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 100%; }
+}
+
+@keyframes moveBlobOne {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(40px, -60px) scale(1.1); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes moveBlobTwo {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-50px, 40px) scale(1.15); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes moveBlobThree {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-20px, -40px) scale(0.9); }
+  66% { transform: translate(50px, 30px) scale(1.08); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob-one {
+  animation: moveBlobOne 18s infinite alternate ease-in-out;
+}
+
+.animate-blob-two {
+  animation: moveBlobTwo 22s infinite alternate ease-in-out;
+}
+
+.animate-blob-three {
+  animation: moveBlobThree 20s infinite alternate ease-in-out;
+}
+
+/* Animated Rain falling from cloud */
+@keyframes fall {
+  0% { transform: translateY(-10px); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translateY(45px); opacity: 0; }
+}
+
+.raindrop {
+  width: 1.5px;
+  height: 7px;
+  background: #a3e635; /* Lime drop */
+  border-radius: 9999px;
+  animation: fall 1.2s linear infinite;
+  display: inline-block;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1.0s; }
+
+/* Pulse Glow */
+@keyframes softPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.04); }
+}
+
+.glow-spot {
+  filter: blur(100px);
+  animation: softPulse 10s ease-in-out infinite;
+}

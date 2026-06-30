@@ -1,0 +1,8 @@
+{
+  "name": "Diya",
+  "description": "A beautiful, calm, and interactive student workspace with AI circadian planning, habit tracking, and stress buster guides.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

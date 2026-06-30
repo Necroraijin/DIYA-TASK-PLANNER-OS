@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile stored after registration or Google Login",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "encryptionKey": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "username", "email"]
+    },
+    "Task": {
+      "title": "Student Task",
+      "description": "A study goal, assignment, or task scheduled in the student workspace",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "priority": { "type": "string", "enum": ["High", "Medium", "Low"] },
+        "status": { "type": "string", "enum": ["Todo", "In Progress", "Done"] },
+        "deadline": { "type": "string" },
+        "cognitivePriority": { "type": "string" },
+        "consequencesOfMissing": { "type": "string" },
+        "readyToGoSolutions": { "type": "array" },
+        "alternativePlans": { "type": "array" },
+        "copilotAssistance": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "status", "deadline"]
+    },
+    "Habit": {
+      "title": "Daily Habit",
+      "description": "A recurring student habit being tracked",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "completedDays": { "type": "array" },
+        "streak": { "type": "integer" }
+      },
+      "required": ["id", "userId", "title", "completedDays", "streak"]
+    },
+    "Notification": {
+      "title": "Workspace Log",
+      "description": "A study notification or system log for the student",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "read": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "read", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Individual user document indexed by user's auth UID"
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Individual task document indexed by unique task ID"
+    },
+    "/habits/{habitId}": {
+      "schema": "Habit",
+      "description": "Individual habit document indexed by unique habit ID"
+    },
+    "/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "Individual notification document indexed by unique notification ID"
+    }
+  }
+}
